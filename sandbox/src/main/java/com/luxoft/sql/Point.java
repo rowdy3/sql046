@@ -9,6 +9,7 @@ public class Point {
         this.y = y;
     }
 
+   
     public double distance(Point p1){
         double distanceX = (x - p1.x);
         double distanceY = (y-p1.y);
