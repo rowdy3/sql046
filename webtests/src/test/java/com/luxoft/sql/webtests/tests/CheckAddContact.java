@@ -29,7 +29,7 @@ public class CheckAddContact {
         driver.findElement(By.name("submit")).click();
 
         goToMenu("home");
-       Assert.assertEquals(findLastContact(), "Петров Иван Маркса 18/28");
+       Assert.assertEquals(findContact("last()"), "Петров Иван Маркса 18/28");
     }
 
     public void login(String login, String password){
@@ -45,8 +45,9 @@ public class CheckAddContact {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    public String findLastContact(){
-        return driver.findElement(By.xpath("//*[@id = 'maintable']//tr[last()]")).getText();
+    public String findContact(String contactNumder){
+        String itemXPath = String.format("//*[@id = 'maintable']//tr[%s]", contactNumder);
+        return driver.findElement(By.xpath(itemXPath)).getText();
     }
 
     @BeforeClass
