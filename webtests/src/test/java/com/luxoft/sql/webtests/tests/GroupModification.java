@@ -10,9 +10,9 @@ public class GroupModification extends BaseTest {
     @Test
     public void test(){
         login("admin", "secret");
-        findFirsContact();
+        findFistGroup();
         initGroupModification();
-        fillContact(new GroupData("Петр", "AAa", "Семенович", "Семеновская 18/28"));
+        fillContact(new GroupData("Петр", "A", "Семенович", "Семеновская 18/28"));
         driver.findElement(By.name("update")).click();
         goToMenu("home");
         Assert.assertEquals(findFirsContact(), "AA Иван Семеновская 18/28");
@@ -20,7 +20,7 @@ public class GroupModification extends BaseTest {
     }
 
     private void initGroupModification(){
-        driver.findElement(By.linkText("Edit")).click();
+        driver.findElement(By.cssSelector("a [title='Edit']")).click();
     }
 
 

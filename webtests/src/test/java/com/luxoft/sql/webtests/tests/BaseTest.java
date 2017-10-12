@@ -36,15 +36,23 @@ public class BaseTest {
 
     //TODO придумать как нажать на редактирование при таком поиске контакта
 
+    public void findFistGroup(){
+        driver.findElement(By.name("selected[]"));
+    }
+
     public String findFirsContact(){
         String itemXPath = String.format(firstContact);
         return driver.findElement(By.xpath(itemXPath)).getText();
     }
 
     public void fillContact(GroupData groupData){
+        driver.findElement(By.name("firstname")).clear();
         driver.findElement(By.name("firstname")).sendKeys(groupData.getName());
+        driver.findElement(By.name("lastname")).clear();
         driver.findElement(By.name("lastname")).sendKeys(groupData.getLastName());
+        driver.findElement(By.name("middlename")).clear();
         driver.findElement(By.name("middlename")).sendKeys(groupData.getMiddleName());
+        driver.findElement(By.name("address")).clear();
         driver.findElement(By.name("address")).sendKeys(groupData.getAddress());
     }
 
