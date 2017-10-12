@@ -22,14 +22,14 @@ public class CheckAddContact {
         login("admin", "secret");
 
         goToMenu("add new");
-        driver.findElement(By.name("firstname")).sendKeys("Иван");
+        driver.findElement(By.name("firstname")).sendKeys("Семен");
         driver.findElement(By.name("middlename")).sendKeys("Анатольевич");
-        driver.findElement(By.name("lastname")).sendKeys("Петров");
-        driver.findElement(By.name("address")).sendKeys("Маркса 18/28");
+        driver.findElement(By.name("lastname")).sendKeys("Аaтонов");
+        driver.findElement(By.name("address")).sendKeys("Семеновская 18/28");
         driver.findElement(By.name("submit")).click();
 
         goToMenu("home");
-       Assert.assertEquals(findContact("last()"), "Петров Иван Маркса 18/28");
+       Assert.assertEquals(findFirsContact(), "Петров Семен Семеновская 18/28");
     }
 
     public void login(String login, String password){
@@ -45,8 +45,8 @@ public class CheckAddContact {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    public String findContact(String contactNumder){
-        String itemXPath = String.format("//*[@id = 'maintable']//tr[%s]", contactNumder);
+    public String findFirsContact(){
+        String itemXPath = String.format("//*[@id = 'maintable']//tr[2]");
         return driver.findElement(By.xpath(itemXPath)).getText();
     }
 
@@ -59,6 +59,7 @@ public class CheckAddContact {
 
     @AfterTest
     public void close(){
+
         driver.close();
     }
 
