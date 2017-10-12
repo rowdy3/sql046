@@ -1,66 +1,22 @@
 package com.luxoft.sql.webtests.tests;
 
 
+import com.luxoft.sql.webtests.commons.GroupData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
-import java.util.concurrent.TimeUnit;
-
-
-public class CheckAddContact {
-    public final String loginPage = "http://localhost:8080/addressbook/index.php";
-    WebDriver driver;
+public class CheckAddContact extends BaseTest{
 
     @Test
     public void test(){
         login("admin", "secret");
-
         goToMenu("add new");
-        driver.findElement(By.name("firstname")).sendKeys("Семен");
-        driver.findElement(By.name("middlename")).sendKeys("Анатольевич");
-        driver.findElement(By.name("lastname")).sendKeys("Аaтонов");
-        driver.findElement(By.name("address")).sendKeys("Семеновская 18/28");
+        fillContact(new GroupData("Иван", "AA", "Семенович", "Семеновская 18/28"));
         driver.findElement(By.name("submit")).click();
-
         goToMenu("home");
-       Assert.assertEquals(findFirsContact(), "Петров Семен Семеновская 18/28");
-    }
-
-    public void login(String login, String password){
-        driver.findElement(By.name("user")).clear();
-        driver.findElement(By.name("user")).sendKeys(login);
-        driver.findElement(By.name("pass")).clear();
-        driver.findElement(By.name("pass")).sendKeys(password);
-        driver.findElement(By.cssSelector("input[type='submit']")).click();
-    }
-
-    public void goToMenu (String name){
-        driver.findElement(By.linkText(name)).click();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    }
-
-    public String findFirsContact(){
-        String itemXPath = String.format("//*[@id = 'maintable']//tr[2]");
-        return driver.findElement(By.xpath(itemXPath)).getText();
-    }
-
-    @BeforeClass
-    public void start(){
-        System.setProperty("webdriver.chrome.driver", "lib/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get(loginPage);
-    }
-
-    @AfterTest
-    public void close(){
-
-        driver.close();
+       Assert.assertEquals(findFirsContact(), "AA Иван Семеновская 18/28");
     }
 
 }
