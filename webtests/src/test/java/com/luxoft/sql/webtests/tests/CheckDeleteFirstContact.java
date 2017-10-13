@@ -7,11 +7,11 @@ public class CheckDeleteFirstContact extends BaseTest{
 
     @Test
     public void test(){
-        login("admin", "secret");
-        String deleteContact = findFirsContact();
-        deleteFirstContact();
-        goToMenu("home");
-        if (findFirsContact() == deleteContact) {
+        app.getLoginSession().login("admin", "secret");
+        String deleteContact = app.getContactHelper().findFirsContact();
+        app.getContactHelper().deleteFirstContact();
+        app.getNavigationHelper().goToMenu("home");
+        if (app.getContactHelper().findFirsContact() == deleteContact) {
            throw new IllegalArgumentException("Контакт " + deleteContact + " не удален");
         }
     }
