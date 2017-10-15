@@ -1,13 +1,13 @@
-package com.luxoft.sql.webtests.tests;
+package com.luxoft.sql.webtests.commons;
 
-import com.luxoft.sql.webtests.commons.Applicaton;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 
 
 public class BaseTest {
 
-    protected final Applicaton app = new Applicaton();
+    public final Applicaton app = new Applicaton();
 
     @BeforeClass
     public void start(){

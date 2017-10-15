@@ -1,4 +1,4 @@
-package com.luxoft.sql.webtests.commons;
+package com.luxoft.sql.webtests.commons.helpers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +13,7 @@ public class BaseHelper {
         this.driver = driver;
     }
 
-    protected void type(By locator, String text) {
+    protected void fillInTheField(By locator, String text) {
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(text);
     }

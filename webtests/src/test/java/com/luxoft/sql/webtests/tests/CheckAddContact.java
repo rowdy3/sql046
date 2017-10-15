@@ -1,12 +1,13 @@
 package com.luxoft.sql.webtests.tests;
 
 
+import com.luxoft.sql.webtests.commons.BaseTest;
 import com.luxoft.sql.webtests.commons.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
-public class CheckAddContact extends BaseTest{
+public class CheckAddContact extends BaseTest {
 
     @Test
     public void test(){

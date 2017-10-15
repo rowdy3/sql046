@@ -1,9 +1,10 @@
-package com.luxoft.sql.webtests.commons;
+package com.luxoft.sql.webtests.commons.helpers;
 
+import com.luxoft.sql.webtests.commons.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ContactHelper extends BaseHelper{
+public class ContactHelper extends BaseHelper {
 
     private String firstContact = "//*[@id = 'maintable']//tr[2]";
 
@@ -27,10 +28,10 @@ public class ContactHelper extends BaseHelper{
     }
 
     public void fillContact(GroupData groupData){
-        type(By.name("firstname"), groupData.getName());
-        type(By.name("lastname"), groupData.getLastName());
-        type(By.name("middlename"), groupData.getMiddleName());
-        type(By.name("address"), groupData.getAddress());
+        fillInTheField(By.name("firstname"), groupData.getName());
+        fillInTheField(By.name("lastname"), groupData.getLastName());
+        fillInTheField(By.name("middlename"), groupData.getMiddleName());
+        fillInTheField(By.name("address"), groupData.getAddress());
     }
 
     public void doneWorkWithContact(String buttonName){

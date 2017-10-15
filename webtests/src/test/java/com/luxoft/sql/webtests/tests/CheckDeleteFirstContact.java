@@ -1,9 +1,10 @@
 package com.luxoft.sql.webtests.tests;
 
+import com.luxoft.sql.webtests.commons.BaseTest;
 import org.testng.annotations.Test;
 
 
-public class CheckDeleteFirstContact extends BaseTest{
+public class CheckDeleteFirstContact extends BaseTest {
 
     @Test
     public void test(){

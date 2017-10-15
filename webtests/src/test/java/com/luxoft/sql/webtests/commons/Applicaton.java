@@ -1,5 +1,8 @@
 package com.luxoft.sql.webtests.commons;
 
+import com.luxoft.sql.webtests.commons.helpers.ContactHelper;
+import com.luxoft.sql.webtests.commons.helpers.LoginSession;
+import com.luxoft.sql.webtests.commons.helpers.NavigationHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
