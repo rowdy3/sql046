@@ -5,6 +5,9 @@ import com.luxoft.sql.webtests.commons.helpers.LoginSession;
 import com.luxoft.sql.webtests.commons.helpers.NavigationHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
 
 
 public class Applicaton {
@@ -14,11 +17,25 @@ public class Applicaton {
     LoginSession loginSession;
     NavigationHelper navigationHelper;
     WebDriver driver;
+    String browser;
+
+
+
+    public Applicaton(String browser){
+        this.browser = browser;
+    }
 
 
     public void init() {
-        System.setProperty("webdriver.chrome.driver", "lib/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
+        if(browser.equals(BrowserType.CHROME)){
+            driver = new ChromeDriver();
+        }else if (browser.equals(BrowserType.IE)){
+            driver = new InternetExplorerDriver();
+        } else if (browser.equals(BrowserType.EDGE)){
+            driver = new EdgeDriver();
+        }
+        //System.setProperty("webdriver.chrome.driver", "lib/drivers/chromedriver.exe");
+
         contactHelper = new ContactHelper(driver);
         loginSession = new LoginSession(driver);
         navigationHelper = new NavigationHelper(driver);

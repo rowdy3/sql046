@@ -13,8 +13,7 @@ public class CheckAddContact extends BaseTest {
     public void test(){
         app.getLoginSession().login("admin", "secret");
         app.getNavigationHelper().goToMenu("add new");
-        app.getContactHelper().fillContact(new GroupData("Иван", "A", "Семенович", "Семеновская 18/28"));
-        app.getContactHelper().doneWorkWithContact("submit");
+        app.getContactHelper().createContact (new GroupData("Иван", "Петров", null, null), true);
         app.getNavigationHelper().goToMenu("home");
        Assert.assertEquals(app.getContactHelper().findFirsContact(), "AA Иван Семеновская 18/28");
     }
