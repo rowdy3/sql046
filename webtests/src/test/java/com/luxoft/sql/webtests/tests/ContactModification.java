@@ -20,7 +20,7 @@ public class ContactModification extends BaseTest {
         app.getContactHelper().fillContact(new GroupData("Петр", "Aa", "Семенович", "Семеновская 18/28"), false);
         app.getContactHelper().doneWorkWithContact("update");
         app.getNavigationHelper().goToMenu("home");
-        Assert.assertEquals(app.getContactHelper().findFirsContact(), "Aa Петр Семеновская 18/28");
+        Assert.assertTrue(app.getContactHelper().findContactData("Aa Петр Семеновская 18/28"));
 
     }
 

@@ -2,10 +2,11 @@ package com.luxoft.sql.webtests.commons.helpers;
 
 import com.luxoft.sql.webtests.commons.GroupData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
 
@@ -15,8 +16,10 @@ public class ContactHelper extends BaseHelper {
         super(driver);
     }
 
-    public void deleteFirstContact(){
-        click(By.xpath(firstContact + "//td[2]"));
+    public void deleteFirstContact(int position){
+        position = position + 1;
+        String xpath = String.format("//*[@id = 'maintable']//tr[%s]//td[2]", position);
+        click(By.xpath(xpath));
         click(By.cssSelector("input[type='button'][value = 'Delete']"));
         alertWindow();
     }
@@ -25,9 +28,22 @@ public class ContactHelper extends BaseHelper {
         driver.findElement(By.name("selected[]"));
     }
 
-    public String findFirsContact(){
-        String itemXPath = String.format(firstContact);
-        return driver.findElement(By.xpath(itemXPath)).getText();
+    public boolean findContactData(String contactFullName){
+        List<String> contactList = new ArrayList<>();
+        List<WebElement> webElementList = driver.findElements(By.xpath("//*[@id = 'maintable']//tr"));
+        for (WebElement element: webElementList) {
+            contactList.add(element.getText());
+        }
+        return contactList.contains(contactFullName);
+    }
+
+    public String findContactByPositoin( int ContactPosition){
+        List<String> contactList = new ArrayList<>();
+        List<WebElement> webElementList = driver.findElements(By.xpath("//*[@id = 'maintable']//tr"));
+        for (WebElement element: webElementList) {
+            contactList.add(element.getText());
+        }
+        return contactList.get(ContactPosition);
     }
 
     public boolean contactListExist(){
@@ -60,4 +76,7 @@ public class ContactHelper extends BaseHelper {
         click(By.cssSelector("a [title='Edit']"));
     }
 
+    public int getContactCount() {
+        return driver.findElements(By.cssSelector("a [title='Edit']")).size();
+    }
 }
