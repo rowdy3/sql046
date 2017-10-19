@@ -17,7 +17,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void deleteFirstContact(){
-        click(By.xpath(firstContact + "//td[2]"));
+        click(By.xpath(firstContact + "//td[1]"));
         click(By.cssSelector("input[type='button'][value = 'Delete']"));
         alertWindow();
     }
@@ -38,12 +38,16 @@ public class ContactHelper extends BaseHelper {
     public List<GroupData> findContactlist(){
         List<GroupData> contactLastNameList = new ArrayList<>();
         List<WebElement> webElementList = driver.findElements(By.xpath("//*[@id = 'maintable']//tr"));
-        for (WebElement rowElement: webElementList) {
-            System.out.println(rowElement.getText());
-            String lastName = rowElement.findElement(By.xpath("//td[2]")).getText();
-            String firstName = rowElement.findElement(By.xpath("//td[3]")).getText();
+        List<WebElement> webElementListContact = webElementList.subList(1,webElementList.size());
+        int x = 0;
+        for (WebElement rowElement: webElementListContact) {
+            List<WebElement> cellsLastName = rowElement.findElements(By.xpath("//td[2]"));
+            List<WebElement> cellsFirstName = rowElement.findElements(By.xpath("//td[3]"));
+            String lastName = cellsLastName.get(x).getText();
+            String firstName = cellsFirstName.get(x).getText();
             GroupData listElement = new GroupData(firstName, lastName,null, null);
             contactLastNameList.add(listElement);
+            x++;
         }
         return contactLastNameList;
     }
@@ -59,11 +63,6 @@ public class ContactHelper extends BaseHelper {
 
 
     public void fillContact(GroupData groupData){
-       /* if(creation){
-                Select group = new Select(driver.findElement(By.name("new_group")));
-                group.selectByIndex(1);
-            } else Assert.assertFalse(isElementPresent(By.name("new_group")));*/
-
             fillInTheField(By.name("firstname"), groupData.getName());
             fillInTheField(By.name("lastname"), groupData.getLastName());
             fillInTheField(By.name("middlename"), groupData.getMiddleName());

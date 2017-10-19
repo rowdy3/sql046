@@ -25,17 +25,7 @@ public class CheckAddContact extends BaseTest {
         Comparator<? super GroupData> lastName = (o1, o2) -> o1.getLastName().compareTo(o2.getLastName());
         before.sort(lastName);
         after.sort(lastName);
-
         Assert.assertEquals(after, before);
-
-
-
-        //Assert.assertEquals(countContactAfter, countContactBefore + 1);
-        //Assert.assertTrue(app.getContactHelper().findContactData("AA Иван Семеновская 18/28"), "Клиент AA Иван Семеновская 18/28 находится в списке?");
-    }
-
-    public static void main(String[] args) {
-        List<Integer> integers1 = new ArrayList<>();
     }
 
 }
