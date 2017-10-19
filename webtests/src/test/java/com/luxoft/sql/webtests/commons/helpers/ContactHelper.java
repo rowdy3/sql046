@@ -16,10 +16,8 @@ public class ContactHelper extends BaseHelper {
         super(driver);
     }
 
-    public void deleteFirstContact(int position){
-        position = position + 1;
-        String xpath = String.format("//*[@id = 'maintable']//tr[%s]//td[2]", position);
-        click(By.xpath(xpath));
+    public void deleteFirstContact(){
+        click(By.xpath(firstContact + "//td[2]"));
         click(By.cssSelector("input[type='button'][value = 'Delete']"));
         alertWindow();
     }
@@ -37,26 +35,30 @@ public class ContactHelper extends BaseHelper {
         return contactList.contains(contactFullName);
     }
 
-    public String findContactByPositoin( int ContactPosition){
-        List<String> contactList = new ArrayList<>();
+    public List<GroupData> findContactlist(){
+        List<GroupData> contactLastNameList = new ArrayList<>();
         List<WebElement> webElementList = driver.findElements(By.xpath("//*[@id = 'maintable']//tr"));
-        for (WebElement element: webElementList) {
-            contactList.add(element.getText());
+        for (WebElement rowElement: webElementList) {
+            System.out.println(rowElement.getText());
+            String lastName = rowElement.findElement(By.xpath("//td[2]")).getText();
+            String firstName = rowElement.findElement(By.xpath("//td[3]")).getText();
+            GroupData listElement = new GroupData(firstName, lastName,null, null);
+            contactLastNameList.add(listElement);
         }
-        return contactList.get(ContactPosition);
+        return contactLastNameList;
     }
 
     public boolean contactListExist(){
         return isElementPresent(By.cssSelector("a [title='Edit']"));
     }
 
-    public void createContact (GroupData groupData, boolean creation){
-        fillContact(groupData, creation);
+    public void createContact (GroupData groupData){
+        fillContact(groupData);
         doneWorkWithContact("submit");
     }
 
 
-    public void fillContact(GroupData groupData, boolean creation){
+    public void fillContact(GroupData groupData){
        /* if(creation){
                 Select group = new Select(driver.findElement(By.name("new_group")));
                 group.selectByIndex(1);

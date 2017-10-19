@@ -3,10 +3,11 @@ package com.luxoft.sql.webtests.tests;
 
 import com.luxoft.sql.webtests.commons.BaseTest;
 import com.luxoft.sql.webtests.commons.GroupData;
+import com.sun.deploy.association.AssociationAlreadyRegisteredException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.List;
+import java.util.*;
 
 
 public class CheckAddContact extends BaseTest {
@@ -14,13 +15,27 @@ public class CheckAddContact extends BaseTest {
     @Test
     public void test(){
         app.getLoginSession().login("admin", "secret");
-        int countContactBefore = app.getContactHelper().getContactCount();
+        List<GroupData> before = app.getContactHelper().findContactlist();
         app.getNavigationHelper().goToMenu("add new");
-        app.getContactHelper().createContact (new GroupData("Иван", "AA", null, "Семеновская 18/28"), true);
+        GroupData contact = new GroupData("Иван", "AA", null, "Семеновская 18/28");
+        app.getContactHelper().createContact(contact);
         app.getNavigationHelper().goToMenu("home");
-        int countContactAfter= app.getContactHelper().getContactCount();
-        Assert.assertEquals(countContactAfter, countContactBefore + 1);
-        Assert.assertTrue(app.getContactHelper().findContactData("AA Иван Семеновская 18/28"), "Клиент AA Иван Семеновская 18/28 находится в списке?");
+        List<GroupData> after = app.getContactHelper().findContactlist();
+        before.add(contact);
+        Comparator<? super GroupData> lastName = (o1, o2) -> o1.getLastName().compareTo(o2.getLastName());
+        before.sort(lastName);
+        after.sort(lastName);
+
+        Assert.assertEquals(after, before);
+
+
+
+        //Assert.assertEquals(countContactAfter, countContactBefore + 1);
+        //Assert.assertTrue(app.getContactHelper().findContactData("AA Иван Семеновская 18/28"), "Клиент AA Иван Семеновская 18/28 находится в списке?");
+    }
+
+    public static void main(String[] args) {
+        List<Integer> integers1 = new ArrayList<>();
     }
 
 }

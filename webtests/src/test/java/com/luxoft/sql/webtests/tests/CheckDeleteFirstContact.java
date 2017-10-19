@@ -9,13 +9,13 @@ public class CheckDeleteFirstContact extends BaseTest {
     @Test
     public void test(){
         app.getLoginSession().login("admin", "secret");
-        //String deleteContact = app.getContactHelper().findContactByPositoin(1);
+        //String deleteContact = app.getContactHelper().findContactlist(1);
         String deleteContact = "dfdfdfd";
-        app.getContactHelper().deleteFirstContact(1);
+        app.getContactHelper().deleteFirstContact();
         app.getNavigationHelper().goToMenu("home");
-        if (app.getContactHelper().findContactByPositoin(1) == deleteContact) {
+        /*if (app.getContactHelper().findContactlist() == deleteContact) {
            throw new IllegalArgumentException("Контакт " + deleteContact + " не удален");
-        }
+        }*/
     }
 
 
